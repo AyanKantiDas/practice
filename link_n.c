@@ -193,14 +193,14 @@ int main()
     int data;
     printf("\nEnter the data: ");
     scanf("%d", &data);
-   /* ptr = insertAtFirst(ptr, data); 
+    ptr = insertAtFirst(ptr, data); 
     printf("The link list after insert at first : ");  
     linkTransverese(ptr);
 
 
     ptr = deleteAtFirst(ptr);
     printf("\nthe first element deleted: ");
-    linkTransverese(ptr);*/
+    linkTransverese(ptr);
 
 
     int index;
@@ -211,7 +211,7 @@ int main()
     linkTransverese(ptr);
 
 
-    /*ptr = insertAtEnd(ptr, data);
+    ptr = insertAtEnd(ptr, data);
     printf("\nlink list after inserting at end: ");
     linkTransverese(ptr);
 
@@ -232,7 +232,7 @@ int main()
 
     ptr = deleteGivenValue(ptr, data);
     printf("\nlink list after delete at given value: ");
-    linkTransverese(ptr);*/
+    linkTransverese(ptr);
 
     printf("\nthe reverse link list is ");
     ptr = reverse_display(ptr);

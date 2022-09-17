@@ -7,239 +7,339 @@ struct Node
     struct Node *next;
 };
 
-struct Node *ptr = NULL, *q;
-void create(int);
+struct Node *head = NULL;
 
-void linkTransverese(struct Node *ptr)
+
+void linkTransverese()
 {
-    q = ptr;
-    while(q != NULL)
+    struct Node *ptr;
+    if (head == NULL)
     {
-        printf("%d ", q->data);
-        q = q->next;
-    }
-}
-
-struct Node *insertAtFirst(struct Node *head, int data )
-{
-    struct Node *ptr = (struct Node*)malloc(sizeof(struct Node));
-    ptr->next = head;
-    ptr->data = data;
-    return ptr;
-}
-
-struct Node *insertAtindex(struct Node *head, int data, int index)
-{
-    struct Node *ptr = (struct Node*)malloc(sizeof(struct Node));
-    struct Node *p = head;
-    int i = 0;
-    while (i != (index-1))
-    {
-        p = p->next;
-        i++;
-    }
-    ptr->data = data;
-    ptr->next = p->next;
-    p->next = ptr;
-    return head;
-}
-
-
-struct Node *insertAtEnd(struct Node *head, int data)
-{
-    struct Node *ptr =(struct Node *)malloc(sizeof(struct Node));
-    ptr->data = data;
-    struct Node *p = head;
-    while(p->next != NULL)
-    {
-        p = p->next;
-    }
-    p->next = ptr;
-    ptr->next = NULL;
-    return head;
-
-}
-
-struct Node *insertAfterNode(int item, struct Node *head, int data)
-{
-    struct Node *p = head;
-    while(p != NULL)
-    {
-        if(ptr->data == item)
-        {
-            struct Node *ptr =(struct Node*)malloc(sizeof(struct Node));
-            ptr->data = data;
-            ptr->next = p->next;
-            p->next = ptr;
-            return head; 
-     
-        }
-        p = p->next;
-    }
-                   
-}
-
-struct Node *deleteAtFirst(struct Node *head)
-{
-    struct Node *ptr = head;
-    head = head->next;
-    free(ptr);
-    return head;
-}
-
-struct Node *deleteAtIndex(struct Node *head, int index)
-{
-    struct Node *ptr = head;
-    struct Node *a = head->next;
-    for(int i = 0; i < index -1; i++)
-    {
-        ptr = ptr->next;
-        a = a->next;
-    }
-    ptr->next = a->next;
-    free(a);
-    return head;
-}
-
-struct Node *deleteAtLast(struct Node *head)
-{
-    struct Node *ptr = head;
-    struct Node *a = head->next;
-    while(a->next != NULL)
-    {
-        ptr = ptr->next;
-        a = a->next;
-    }
-    ptr->next = NULL;
-    free(a);
-    return head;
-}
-
-struct Node *deleteGivenValue(struct Node *head, int value)
-{
-    struct Node *ptr = head;
-    struct Node *a = head->next;
-    while(a->data != value && a->next != NULL)
-    {
-        ptr = ptr->next;
-        a = a->next;
-    }
-    if(a->data == value)
-    {
-        ptr->next = a->next;
-        free(a);
-    }
-    return head;
-}
-
-struct Node *reverse_display(struct Node *head)
-{
-    if(head)
-    {
-        reverse_display(head->next);
-        printf("%d ",head->data);
-    }
-    return head;
-}
-
-
-void create(int val)
-{
-    struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
-    temp->data = val;
-    temp->next = NULL;
-    if(ptr == NULL)
-    {
-        ptr = temp;
+        printf("\nList is empty\n");
     }
     else
     {
-        q = ptr;
-        while(q->next != NULL)
+        ptr = head;
+        while(ptr != NULL)
         {
-            q = q->next;
+            printf("DATA: \n");
+            printf("%d -> ", ptr->data);
+            ptr = ptr->next;
         }
-        q->next = temp;
+        
+    }
+    
+}
+
+void insertAtFirst()
+{
+    int value;
+    struct Node *ptr = (struct Node*)malloc(sizeof(struct Node));
+    printf("Enter the number to be inserted at first: ");
+    scanf("%d", &value);
+    ptr->next = head;
+    ptr->data = value;
+    head = ptr;
+}
+
+void insertAtindex()
+{
+    struct Node *ptr, *newnode;//newnode = index
+    int pos, value, i = 1;
+    newnode = malloc(sizeof(struct Node));
+
+    printf("\nEnter the position and the data : ");
+    scanf("%d %d ", &pos, &value);
+
+    ptr = head;
+    newnode->data = value;
+    newnode->next = 0;
+    while(i < pos - 1)
+    {
+        ptr = ptr->next;
+    }
+    newnode->next = ptr->next;
+    ptr->next = newnode;
+}
+
+
+void insertAtEnd()
+{
+   int value;
+   struct Node *ptr, *q;
+   ptr = malloc(sizeof(struct Node));
+
+   printf("\nEnter the number to be inserted at the end : ");
+   scanf("%d", &value);
+
+   ptr->next = 0;
+   ptr->data = value;
+   q = head;
+   while(q->next != NULL)
+   {
+    q = q->next;
+   }
+   q->next = ptr;
+}
+
+
+void deleteAtFirst()
+{
+
+    struct Node *ptr ;
+    if (head == NULL)
+    {
+        printf("\nList is empty\n");
+    }
+    else
+    {
+        ptr = head;
+        head = head->next;
+        free(ptr);
+    }
+}
+
+void deleteAtIndex()
+{
+    struct Node *ptr, *position;
+    int i = 1, pos;
+
+    if(head == NULL)
+    {
+        printf("\nList is Empty\n");
+    }
+    else
+    {
+        printf("\nEnter index: ");
+        scanf("%d", &pos);
+        position = malloc(sizeof(struct Node));
+        ptr = head;
+
+        while(i < pos - 1)
+        {
+            ptr = ptr->next;
+            i++;
+        }
+
+        position = ptr->next;
+        ptr->next = position->next;
+
+        free(position);
     }
 }
 
 
+void deleteAtLast()
+{
+    struct Node *ptr, *prevnode;
+    if(head == NULL)
+    {
+        printf("\nList is Empty\n");
+    }
+    else
+    {
+        ptr = head;
+        while(ptr->next != 0)
+        {
+            prevnode = ptr;
+            ptr = ptr->next;
+        }
+        free(ptr);
+        prevnode->next = 0;
+    }
+}
+
+
+void reverse_display()
+{
+   struct Node *t1, *t2, *ptr;
+   t1 = t2 = NULL;
+
+   if(head == NULL)
+   {
+    printf("\nThe List is empty\n");
+   }
+   else
+   {
+    while(head != NULL)
+    {
+        t2 = head->next;
+        head->next = t1;
+        t1 = head;
+        head = t2;
+    }
+    head = t1;
+
+    ptr = head;
+    printf("Reversed linked list is : ");
+
+    while(ptr != NULL)
+    {
+        printf("%d ", ptr->data);
+        ptr = ptr->next;
+    }
+   }
+}
+
+void sort()
+{
+    struct Node *current = head;
+    struct Node *index = NULL;
+    int temp;
+
+    if(head == NULL)
+    {
+        return;
+    }
+    else
+    {
+        while(current != NULL)
+        {
+            index = current->next;
+            while(index != NULL)
+            {
+                if(current->data > index->data)
+                {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        }
+    }
+}
+
+
+void even()
+{
+    struct Node *current = head;
+    struct Node *index = NULL;
+    int temp;
+
+    if(head == NULL)
+    {
+        return;
+    }
+    else
+    {
+        while(current != NULL)
+        {
+            {
+                if(current->data / 2 == 0)
+                {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+        }
+    }
+}
+
+void create()
+{
+    //if(head == NULL)
+    //{
+        struct Node *temp, *ptr;
+        int n;
+        int val;
+        printf("\nEnter the number of nodes: ");
+        scanf("%d", &n);
+        if(n != 0)
+        {
+            
+            head = (struct Node *)malloc(sizeof(struct Node));
+            printf("\nEnter number to"
+                   " be inserted : ");
+            scanf("%d", &val);
+            head->data = val;
+            head->next = NULL;
+            temp = head;
+            for(int i = 1; i < n; i++)
+            {
+                ptr = (struct Node *)malloc(sizeof(struct Node));
+                printf("\nEnter number to be inserted : ");
+                scanf("%d", &val);
+                ptr->data = val;
+                ptr->next = NULL;
+                temp->next = ptr;
+                temp = temp->next;
+            }
+        }
+        printf("\nThe list is created\n");
+    //}
+    //else
+          //printf("\nThe list is already created\n");
+}
 
 int main()
 {
-    struct Node *head;
-    
-    int n, val;
-    printf("Enter the number of nodes: ");
-    scanf("%d", &n);
-    
-    if(n != 0)
-    {
-        printf("Enter the values: ");
-        for(int i = 0; i < n; i++)
-        {
-            scanf("%d", &val);
-            create(val);
+    int choice;
+    while (1) {
+  
+        printf("\n\t1  To see list\n");
+        printf("\t2  For insertion at"
+               " starting\n");
+        printf("\t3  For insertion at"
+               " end\n");
+        printf("\t4  For insertion at "
+               "any position\n");
+        printf("\t5  For deletion of "
+               "first element\n");
+        printf("\t6  For deletion of "
+               "last element\n");
+        printf("\t7  For deletion of "
+               "element at any position\n");
+        printf("\t8 To sort element\n");
+        printf("\t9 To reverse the "
+               "linked list\n");
+        printf("\t10 To exit\n");
+        printf("\t11 create list first\n");
+        printf("\nEnter Choice :\n");
+        scanf("%d", &choice);
+  
+        switch (choice) {
+        case 1:
+            linkTransverese();
+            break;
+        case 2:
+            insertAtFirst();
+            break;
+        case 3:
+            insertAtEnd();
+            break;
+        case 4:
+            insertAtindex();
+            break;
+        case 5:
+            deleteAtFirst();
+            break;
+        case 6:
+            deleteAtLast();
+            break;
+        case 7:
+            deleteAtIndex();
+            break;
+        case 8:
+            sort();
+            break;
+        case 9:
+            reverse_display();
+            break;
+        case 10:
+            exit(1);
+            break;
+        case 11:
+            create();
+            break;   
+        case 12:
+            even();     
+        default:
+            printf("Incorrect Choice\n");
         }
     }
-    else 
-    {
-        printf("Empty link list ");
-    }  
-    printf("The link list : ");  
-    linkTransverese(ptr);
-
-
-    int data;
-    printf("\nEnter the data: ");
-    scanf("%d", &data);
-    ptr = insertAtFirst(ptr, data); 
-    printf("The link list after insert at first : ");  
-    linkTransverese(ptr);
-
-
-    ptr = deleteAtFirst(ptr);
-    printf("\nthe first element deleted: ");
-    linkTransverese(ptr);
-
-
-    int index;
-    printf("\nEnter the index: ");
-    scanf("%d", &index);
-    ptr = insertAtindex(ptr, data, index); 
-    printf("\ninserting at any index: ");
-    linkTransverese(ptr);
-
-
-    ptr = insertAtEnd(ptr, data);
-    printf("\nlink list after inserting at end: ");
-    linkTransverese(ptr);
-
-    int item;
-    printf("ENter the item no: ");
-    scanf("%d", &item);
-    ptr = insertAfterNode (ptr, item , data);   
-    printf("\nlink list after inserting after a node: ");
-    linkTransverese(ptr);
-
-    ptr = deleteAtIndex(ptr, index);
-    printf("\nlink list after delete at index: ");
-    linkTransverese(ptr);
-
-    ptr = deleteAtLast(ptr);
-    printf("\n link list after delete at last: ");
-    linkTransverese(ptr);
-
-    ptr = deleteGivenValue(ptr, data);
-    printf("\nlink list after delete at given value: ");
-    linkTransverese(ptr);
-
-    printf("\nthe reverse link list is ");
-    ptr = reverse_display(ptr);
-    
-   
-   
-
     return 0;
-
 }
